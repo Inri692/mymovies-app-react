@@ -1,49 +1,112 @@
+// Constructor start
 import React, { Component } from "react";
-import Button from "../components/Button";
-import reactLogo from "../assets/react.svg";
-import "../styles/App.css";
-import Navbar from "../components/Navbar";
 
-export class Home extends Component {
+import Layout from "../components/Layout";
+import Card from "../components/Card";
+import { SkeletonLoading, LoadingAnimation } from "../components/Loading";
+//import Hero from "../components/Hero";
+
+interface DatasType {
+  id: number;
+  title: string;
+  image: string;
+  rating: number;
+}
+
+export default class Home extends Component {
   state = {
-    count: 0,
-    title: "",
+    datas: [],
+    loading: true,
   };
 
-  clickHandler() {
-    this.setState({ count: this.state.count + 1 });
+  componentDidMount() {
+    this.fetchData();
+  }
+
+  fetchData() {
+    setTimeout(() => {
+      this.setState({
+        datas: [
+          {
+            id: 1,
+            title: "Avatar: The Way of Water",
+            rating: 5,
+            image:
+              "https://image.tmdb.org/t/p/w500/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg",
+          },
+          {
+            id: 2,
+            title: "Black Adam",
+            rating: 4,
+            image:
+              "https://image.tmdb.org/t/p/w500/pFlaoHTZeyNkG83vxsAJiGzfSsa.jpg",
+          },
+          {
+            id: 3,
+            title: "Avatar",
+            rating: 5,
+            image:
+              "https://image.tmdb.org/t/p/w500/jRXYjXNq0Cs2TcJjLkki24MLp7u.jpg",
+          },
+          {
+            id: 4,
+            title: "Savage Salvation",
+            rating: 4,
+            image:
+              "https://image.tmdb.org/t/p/w500/fJRt3mmZEvf8gQzoNLzjPtWpc9o.jpg",
+          },
+          {
+            id: 5,
+            title: "The Woman King",
+            rating: 5,
+            image:
+              "https://image.tmdb.org/t/p/w500/438QXt1E3WJWb3PqNniK0tAE5c1.jpg",
+          },
+          {
+            id: 6,
+            title: "Glass Onion: A Knives Out Mystery",
+            rating: 4,
+            image:
+              "https://image.tmdb.org/t/p/w500/vDGr1YdrlfbU9wxTOdpf3zChmv9.jpg",
+          },
+          {
+            id: 7,
+            title: "Violent Night",
+            rating: 5,
+            image:
+              "https://image.tmdb.org/t/p/w500/1XSYOP0JjjyMz1irihvWywro82r.jpg",
+          },
+          {
+            id: 8,
+            title: "Black Panther: Wakanda Forever",
+            rating: 5,
+            image:
+              "https://image.tmdb.org/t/p/w500/sv1xJUazXeYqALzczSZ3O6nkH75.jpg",
+          },
+        ],
+        loading: false,
+      });
+    }, 1000);
   }
 
   render() {
     return (
-      <div className="w-screen h-screen">
-        <Navbar />
-        <div className="flex justify-center">
-          <a href="https://vitejs.dev" target="_blank">
-            <img src="/vite.svg" className="logo" alt="Vite logo" />
-          </a>
-          <a href="https://reactjs.org" target="_blank">
-            <img src={reactLogo} className="logo react" alt="React logo" />
-          </a>
+      <Layout>
+        <div className="grid grid-cols-4 gap-3">
+          {this.state.loading ? (
+            <SkeletonLoading />
+          ) : (
+            this.state.datas.map((data: DatasType) => (
+              <Card
+                key={data.id}
+                title={data.title}
+                image={data.image}
+                rating={data.rating}
+              />
+            ))
+          )}
         </div>
-        <div>
-          <h1 className="text-yellow-300">Vite + React</h1>
-          <div className="card">
-            <Button
-              label={`count is ${this.state.count}`}
-              onClick={() => this.clickHandler()}
-            />
-            <p>
-              Edit <code>src/App.tsx</code> and save to test HMR
-            </p>
-          </div>
-          <p className="read-the-docs">
-            Click on the Vite and React logos to learn more
-          </p>
-        </div>
-      </div>
+      </Layout>
     );
   }
 }
-
-export default Home;

@@ -3,33 +3,37 @@ import React, { Component } from "react";
 export class Navbar extends Component {
   render() {
     return (
-      <div className="">
-        <div className="navbar bg-base-500">
+      <div>
+        <div className="navbar bg-[#52525b]">
           <div className="flex-1">
-            <a className="btn btn-ghost normal-case text-xl">Nonton</a>
-            <ul className="px-6">
-              <li>
-                <a href="" className="text-black">
-                  List Movies
-                </a>
-              </li>
-            </ul>
-            <ul className="px-4">
-              <li>
-                <a href="" className="text-black">
-                  Favorite
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div className="flex-none gap-2">
-            <div className="form-control">
-              <input
-                type="text"
-                placeholder="Search"
-                className="input input-bordered"
-              />
+            <a className="btn btn-ghost normal-case text-2xl text-white">
+              Nonton
+            </a>
+            <div className="flex justify-center">
+              <div className="form-control">
+                <input
+                  type="text"
+                  placeholder="Search"
+                  className="input input-bordered flex justify-center"
+                />
+              </div>
             </div>
+          </div>
+
+          <div className="flex-none gap-4">
+            <div>
+              <ul className="px-4">
+                <li>
+                  <a href="" className="text-white">
+                    Favorite
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <input type="checkbox" className="toggle" checked />
+            </div>
+
             <div className="dropdown dropdown-end">
               <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                 <div className="w-10 rounded-full">
