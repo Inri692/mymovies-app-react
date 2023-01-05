@@ -1,111 +1,93 @@
 // Constructor start
 import React, { Component } from "react";
-
+import axios from "axios";
 import Layout from "../components/Layout";
 import Card from "../components/Card";
-import { SkeletonLoading, LoadingAnimation } from "../components/Loading";
-//import Hero from "../components/Hero";
+import { CircleLoading } from "../components/Loading";
+//import Carousel from "../components/Carousel";
 
 interface DatasType {
   id: number;
   title: string;
-  image: string;
-  rating: number;
+  poster_path: string;
+  vote_average: number;
 }
-
-export default class Home extends Component {
-  state = {
-    datas: [],
-    loading: true,
-  };
+interface PropsType {}
+interface StateType {
+  loading: boolean;
+  datas: DatasType[];
+}
+export default class Home extends Component<PropsType, StateType> {
+  constructor(props: PropsType) {
+    super(props);
+    this.state = {
+      datas: [],
+      loading: true,
+    };
+  }
 
   componentDidMount() {
     this.fetchData();
   }
 
   fetchData() {
-    setTimeout(() => {
-      this.setState({
-        datas: [
-          {
-            id: 1,
-            title: "Avatar: The Way of Water",
-            rating: 5,
-            image:
-              "https://image.tmdb.org/t/p/w500/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg",
-          },
-          {
-            id: 2,
-            title: "Black Adam",
-            rating: 4,
-            image:
-              "https://image.tmdb.org/t/p/w500/pFlaoHTZeyNkG83vxsAJiGzfSsa.jpg",
-          },
-          {
-            id: 3,
-            title: "Avatar",
-            rating: 5,
-            image:
-              "https://image.tmdb.org/t/p/w500/jRXYjXNq0Cs2TcJjLkki24MLp7u.jpg",
-          },
-          {
-            id: 4,
-            title: "Savage Salvation",
-            rating: 4,
-            image:
-              "https://image.tmdb.org/t/p/w500/fJRt3mmZEvf8gQzoNLzjPtWpc9o.jpg",
-          },
-          {
-            id: 5,
-            title: "The Woman King",
-            rating: 5,
-            image:
-              "https://image.tmdb.org/t/p/w500/438QXt1E3WJWb3PqNniK0tAE5c1.jpg",
-          },
-          {
-            id: 6,
-            title: "Glass Onion: A Knives Out Mystery",
-            rating: 4,
-            image:
-              "https://image.tmdb.org/t/p/w500/vDGr1YdrlfbU9wxTOdpf3zChmv9.jpg",
-          },
-          {
-            id: 7,
-            title: "Violent Night",
-            rating: 5,
-            image:
-              "https://image.tmdb.org/t/p/w500/1XSYOP0JjjyMz1irihvWywro82r.jpg",
-          },
-          {
-            id: 8,
-            title: "Black Panther: Wakanda Forever",
-            rating: 5,
-            image:
-              "https://image.tmdb.org/t/p/w500/sv1xJUazXeYqALzczSZ3O6nkH75.jpg",
-          },
-        ],
-        loading: false,
+    axios
+      .get(
+        `https://api.themoviedb.org/3/movie/now_playing?api_key=${
+          import.meta.env.VITE_API_KEY
+        }&language=en-US&page=1`
+      )
+      .then((data) => {
+        const { results } = data.data;
+        this.setState({ datas: results });
+      })
+      .catch((error) => {
+        alert(error.toString());
+      })
+      .finally(() => {
+        this.setState({ loading: false });
       });
-    }, 1000);
   }
 
   render() {
     return (
       <Layout>
-        <div className="grid grid-cols-4 gap-3">
-          {this.state.loading ? (
-            <SkeletonLoading />
-          ) : (
-            this.state.datas.map((data: DatasType) => (
+        {/* {!this.state.loading && (
+          <Carousel
+            datas={this.state.datas.slice(0, 5)}
+            content={(data) => (
+              <div
+                className="w-full h-full flex justify-center items-center bg-cover bg-center"
+                style={{
+                  backgroundImage: `linear-gradient(
+                    rgba(0, 0, 0, 0.5),
+                    rgba(0, 0, 0, 0.5)
+                  ), url(https://image.tmdb.org/t/p/original${data.poster_path})`,
+                }}
+              >
+                <p className="text-white tracking-widest font-bold break-words text-2xl">
+                  {data.title}
+                </p>
+              </div>
+            )}
+          />
+        )} */}
+        {this.state.loading ? (
+          <div className="w-full flex items-center justify-center">
+            <CircleLoading />
+          </div>
+        ) : (
+          <div className="grid grid-cols-4 gap-3">
+            {this.state.datas.map((data: DatasType) => (
               <Card
                 key={data.id}
                 title={data.title}
-                image={data.image}
-                rating={data.rating}
+                poster_path={data.poster_path}
+                vote_average={data.vote_average}
               />
-            ))
-          )}
-        </div>
+            ))}
+          </div>
+        )}
       </Layout>
     );
   }

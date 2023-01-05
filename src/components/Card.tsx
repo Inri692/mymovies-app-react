@@ -2,8 +2,8 @@ import React, { Component } from "react";
 
 interface CardProps {
   title: string;
-  image: string;
-  rating: number;
+  poster_path: string;
+  vote_average: number;
 }
 
 export default class Card extends Component<CardProps> {
@@ -24,7 +24,7 @@ export default class Card extends Component<CardProps> {
         <div className="flex justify-center items-center px-2 pt-2 cursor-pointer ">
           <img
             className=" w-full object-cover rounded-lg "
-            src={this.props.image}
+            src={`https://image.tmdb.org/t/p/w500${this.props.poster_path}`}
             alt={this.props.title}
           />
         </div>
@@ -34,7 +34,7 @@ export default class Card extends Component<CardProps> {
               {this.props.title}
             </h5>
             <p className="text-black text-[12px] md:text-xs pb-2">
-              Rating {this.props.rating}
+              Rating {this.props.vote_average}
             </p>
           </div>
           <button className="btn gap-1 bg-[#0369a1] text-[9px]">

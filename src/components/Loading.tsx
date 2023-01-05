@@ -3,7 +3,7 @@ import Lottie from "lottie-react";
 
 import MovieAnimation from "../assets/play.json";
 
-export class SkeletonLoading extends Component {
+export class CircleLoading extends Component {
   render() {
     return (
       <div className="flex justify-center">
