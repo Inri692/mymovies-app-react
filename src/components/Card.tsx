@@ -1,12 +1,22 @@
 import React, { Component } from "react";
+import Button from "./Button";
+import { withRouter } from "../utils/navigation";
 
 interface CardProps {
   title: string;
   poster_path: string;
   vote_average: number;
+  id: number;
+  labelButton: string;
+  onClickFav?: () => void;
+  navigate?: any;
+  params?: any;
 }
 
-export default class Card extends Component<CardProps> {
+class Card extends Component<CardProps> {
+  onClickDetail() {
+    this.props.navigate(`/movie/${this.props.id}`);
+  }
   render() {
     return (
       //   <div className="card card-compact bg-base-100 shadow-xl">
@@ -23,6 +33,7 @@ export default class Card extends Component<CardProps> {
       <div className="grid grid-cols-1 bg-white gap-y-4 rounded-lg m-auto z-10 backdrop-blur-2xl shadow-xl">
         <div className="flex justify-center items-center px-2 pt-2 cursor-pointer ">
           <img
+            onClick={() => this.onClickDetail()}
             className=" w-full object-cover rounded-lg "
             src={`https://image.tmdb.org/t/p/w500${this.props.poster_path}`}
             alt={this.props.title}
@@ -30,14 +41,20 @@ export default class Card extends Component<CardProps> {
         </div>
         <div className="flex justify-between items-center px-4 mt-3">
           <div>
-            <h5 className="mb-2 text-2xl text-black md:text-sm font-semibold cursor-pointer">
+            <h5
+              className="mb-2 text-2xl text-black md:text-sm font-semibold cursor-pointer"
+              onClick={() => this.onClickDetail()}
+            >
               {this.props.title}
             </h5>
             <p className="text-black text-[12px] md:text-xs pb-2">
               Rating {this.props.vote_average}
             </p>
           </div>
-          <button className="btn gap-1 bg-[#0369a1] text-[9px]">
+          {/* <button
+            className="btn gap-1 bg-[#0369a1] text-[9px]"
+            
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6"
@@ -52,10 +69,15 @@ export default class Card extends Component<CardProps> {
                 d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
               />
             </svg>
-            Add to Favorite
-          </button>
+           
+          </button> */}
+          <Button
+            label={this.props.labelButton}
+            onClick={this.props.onClickFav}
+          />
         </div>
       </div>
     );
   }
 }
+export default withRouter(Card);
