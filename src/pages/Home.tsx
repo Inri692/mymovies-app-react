@@ -1,18 +1,13 @@
 // Constructor start
-import React, { Component } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Layout from "../components/Layout";
 import Card from "../components/Card";
-import { CircleLoading } from "../components/Loading";
+import Loading from "../components/Loading";
 //import Carousel from "../components/Carousel";
 import { MovieType } from "../utils/types/movie";
+import { useTitle } from "../utils/hooks/hooks";
 
-// interface DatasType {
-//   id: number;
-//   title: string;
-//   poster_path: string;
-//   vote_average: number;
-// }
 interface PropsType {}
 interface StateType {
   loading: boolean;
@@ -21,22 +16,19 @@ interface StateType {
   page: number;
   totalPage: number;
 }
-export default class Home extends Component<PropsType, StateType> {
-  constructor(props: PropsType) {
-    super(props);
-    this.state = {
-      datas: [],
-      loading: true,
-      page: 1,
-      totalPage: 1,
-    };
-  }
 
-  componentDidMount() {
-    this.fetchData(1);
-  }
+const Home = () => {
+  useTitle("Nonton - Home Page");
+  const [datas, setDatas] = useState<MovieType[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [page, setPage] = useState<number>(1);
+  const [totalPage, setTotalPage] = useState<number>(1);
 
-  fetchData(page: number) {
+  useEffect(() => {
+    fetchData(1);
+  }, []);
+
+  function fetchData(page: number) {
     axios
       .get(
         `https://api.themoviedb.org/3/movie/now_playing?api_key=${
@@ -44,34 +36,33 @@ export default class Home extends Component<PropsType, StateType> {
         }&language=en-US&page=${page}`
       )
       .then((data) => {
-        const { results, total_pages } = data.data;
-        this.setState({ datas: results, totalPage: total_pages });
+        // const { results, total_pages } = data.data;
+        // this.setState({ datas: results, totalPage: total_pages });
+        const { results, total_page } = data.data;
+        setDatas(results);
+        setTotalPage(total_page);
       })
       .catch((error) => {
         alert(error.toString());
       })
-      .finally(() => {
-        this.setState({ loading: false });
-      });
-  }
-  nextPage() {
-    const newPage = this.state.page + 1;
-    this.setState({ page: newPage });
-    this.fetchData(newPage);
+      .finally(() => setLoading(false));
   }
 
-  prevPage() {
-    const newPage = this.state.page - 1;
-    this.setState({ page: newPage });
-    this.fetchData(newPage);
-  }
+  // function nextPage() {
+  //   const newPage = page + 1;
+  //   setPage(newPage);
+  //   fetchData(newPage);
+  // }
 
-  handleFavorite(data: MovieType) {
+  // function prevPage()
+  //   const newPage = page - 1;
+  //   setPage(newPage);
+  //   fetchData(newPage);
+  // }
+
+  function handleFavorite(data: MovieType) {
     const checkExist = localStorage.getItem("FavMovie");
     if (checkExist) {
-      /*
-      TODO: Sebelum ditambahkan ke list favorit, silahkan buat pengkondisian/cek terlebih dahulu apakah film yang dipilih sudah ditambahkan atau belum, kasih alert jika ada, jika tidak silahkan push datanya ke localstorage
-      */
       let parseFav: MovieType[] = JSON.parse(checkExist);
       parseFav.push(data);
       localStorage.setItem("FavMovie", JSON.stringify(parseFav));
@@ -81,10 +72,9 @@ export default class Home extends Component<PropsType, StateType> {
     }
   }
 
-  render() {
-    return (
-      <Layout>
-        {/* {!this.state.loading && (
+  return (
+    <Layout>
+      {/* {!this.state.loading && (
           <Carousel
             datas={this.state.datas.slice(0, 5)}
             content={(data) => (
@@ -104,26 +94,26 @@ export default class Home extends Component<PropsType, StateType> {
             )}
           />
         )} */}
-        {this.state.loading ? (
-          <div className="w-full flex items-center justify-center">
-            <CircleLoading />
-          </div>
-        ) : (
-          <div className="grid grid-cols-4 gap-3">
-            {this.state.datas.map((data) => (
-              <Card
-                key={data.id}
-                title={data.title}
-                poster_path={data.poster_path}
-                vote_average={data.vote_average}
-                id={data.id}
-                labelButton="ADD TO FAVORITE"
-                onClickFav={() => this.handleFavorite(data)}
-              />
-            ))}
-          </div>
-        )}
-      </Layout>
-    );
-  }
-}
+      {loading ? (
+        <div className="w-full flex items-center justify-center">
+          <Loading />
+        </div>
+      ) : (
+        <div className="grid grid-cols-4 gap-3">
+          {datas.map((data) => (
+            <Card
+              key={data.id}
+              title={data.title}
+              poster_path={data.poster_path}
+              vote_average={data.vote_average}
+              id={data.id}
+              labelButton="ADD TO FAVORITE"
+              onClickFav={() => handleFavorite(data)}
+            />
+          ))}
+        </div>
+      )}
+    </Layout>
+  );
+};
+export default Home;
