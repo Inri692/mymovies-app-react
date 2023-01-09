@@ -1,9 +1,17 @@
 import { Link } from "react-router-dom";
+import { ThemeContext } from "../utils/context";
+import { useContext } from "react";
+import Button2 from "./Button2";
 
 const Navbar = () => {
+  const { theme, setTheme } = useContext(ThemeContext);
+
+  function handleTheme() {
+    theme === "light" ? setTheme("dark") : setTheme("light");
+  }
   return (
     <div>
-      <div className="navbar bg-[#52525b]">
+      <div className="navbar bg-[#52525b] dark:bg-[#52525b]">
         <div className="flex-1">
           <a className="btn btn-ghost normal-case text-2xl text-white">
             <Link to="/">Nonton</Link>
@@ -31,9 +39,8 @@ const Navbar = () => {
             </ul>
           </div>
           <div>
-            <input type="checkbox" className="toggle" checked />
+            <Button2 label="" onClick={() => handleTheme()} />
           </div>
-
           <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
