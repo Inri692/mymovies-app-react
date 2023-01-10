@@ -65,7 +65,7 @@ const Home = () => {
   //   setPage(newPage);
   //   fetchData(newPage);
   // }
-
+  //nambah comen
   function handleFavorite(data: MovieType) {
     const checkExist = localStorage.getItem("FavMovie");
     // if (checkExist) {
