@@ -1,13 +1,16 @@
-// Constructor start
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+
 import axios from "axios";
-import Layout from "../components/Layout";
-import Card from "../components/Card";
-import Loading from "../components/Loading";
+import Layout from "components/Layout";
+import Card from "components/Card";
+import Loading from "components/Loading";
 //import Carousel from "../components/Carousel";
-import { MovieType } from "../utils/types/movie";
-import { useTitle } from "../utils/hooks/hooks";
-import Button3 from "../components/Button3";
+
+import { setFavorites } from "utils/redux/reducer/reducer";
+import { MovieType } from "utils/types/movie";
+import { useTitle } from "utils/hooks/hooks";
+import Button3 from "components/Button3";
 import Banner from "../components/Banner";
 
 interface PropsType {}
@@ -20,6 +23,7 @@ interface StateType {
 }
 
 const Home = () => {
+  const dispatch = useDispatch();
   useTitle("Nonton - Home Page");
   const [datas, setDatas] = useState<MovieType[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -80,6 +84,7 @@ const Home = () => {
       // }
       parseFav.push(data);
       localStorage.setItem("FavMovie", JSON.stringify(parseFav));
+      dispatch(setFavorites(parseFav));
       alert("Movie added to favorite");
     } else {
       localStorage.setItem("FavMovie", JSON.stringify([data]));
@@ -115,34 +120,32 @@ const Home = () => {
     <>
       <Layout>
         <Banner />
-
-        {/* {!this.state.loading && (
-          <Carousel
-            datas={this.state.datas.slice(0, 5)}
-            content={(data) => (
-              <div
-                className="w-full h-full flex justify-center items-center bg-cover bg-center"
-                style={{
-                  backgroundImage: `linear-gradient(
+        {/* 
+        <Carousel
+          datas={datas.slice(0, 5)}
+          content={(data) => (
+            <div
+              className="w-full h-full flex justify-center items-center bg-cover bg-center"
+              style={{
+                backgroundImage: `linear-gradient(
                     rgba(0, 0, 0, 0.5),
                     rgba(0, 0, 0, 0.5)
                   ), url(https://image.tmdb.org/t/p/original${data.poster_path})`,
-                }}
-              >
-                <p className="text-white tracking-widest font-bold break-words text-2xl">
-                  {data.title}
-                </p>
-              </div>
-            )}
-          />
-        )} */}
+              }}
+            >
+              <p className="text-white tracking-widest font-bold break-words text-2xl">
+                {data.title}
+              </p>
+            </div>
+          )}
+        /> */}
 
         {loading ? (
           <div className="w-full flex items-center justify-center">
             <Loading />
           </div>
         ) : (
-          <div className="grid grid-cols-4 gap-3">
+          <div className="grid grid-cols-4 gap-3 p-3 bg-opa stic lg:grid-cols-4 gap-5 p-5 md:grid-cols-3 sm:grid-cols-2 z-0 backdrop-blur-2xl ">
             {datas.map((data) => (
               <Card
                 key={data.id}

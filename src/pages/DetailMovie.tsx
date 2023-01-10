@@ -23,7 +23,7 @@ const DetailMovie = () => {
   const [data, setData] = useState<MovieType>({});
   const [videos, setVideos] = useState<VideosType[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-    useTitle(`${data.title} - Nonton`);
+  useTitle(`${data.title} - Nonton`);
 
   useEffect(() => {
     fetchData();
@@ -53,52 +53,67 @@ const DetailMovie = () => {
         <Loading />
       ) : (
         <>
-          <div className="flex justify-center">
-            <div className="md:flex flex-row max-w-4xl bg-white shadow-lg bg-opacity-60">
-              <img
-                className="rounded-xl p-3 rounded-xl"
-                src={`https://image.tmdb.org/t/p/w500${data.poster_path}`}
-                alt=""
-              />
-              <div className="flex flex-col">
-                <div className="my-10 text-black text-2xl font-medium mb-2">
-                  <div className="font-semibold">{data.title}</div>
-                </div>
-                <div className="my-4 font-bold">
-                  Release Date
-                  <p className="font-normal"> {data.release_date}</p>
-                </div>
-                <div className="my-4 font-bold">
-                  Duration
-                  <p className="font-normal">{data.runtime} minutes</p>
-                </div>
-                <div className="my-4 font-bold">
-                  Genre{" "}
-                  <p className="font-normal">
-                    {data.genres
-                      ?.map((genre) => {
-                        return genre.name;
-                      })
-                      .join(", ")}
-                  </p>
-                </div>
-                <div className="my-4 font-bold">
-                  Description
-                  <div className="font-normal">{data.overview}</div>
-                </div>
-                <div className="my-4">
-                  <p className="font-bold">Rating</p>
-                  <p className="text-2xl font-extrabold">{data.vote_average}</p>
+          <div
+            className=" w-full h-[100vh] bg-cover  "
+            style={{
+              backgroundImage: `url(${`https://image.tmdb.org/t/p/original${data.backdrop_path})`}`,
+            }}
+          >
+            <div className="flex justify-center">
+              <div className="md:flex flex-row max-w-4xl bg-white shadow-lg bg-opacity-60">
+                <img
+                  className="rounded-3xl p-3 rounded-xl"
+                  src={`https://image.tmdb.org/t/p/w500${data.poster_path}`}
+                  alt=""
+                />
+                <div className="flex flex-col">
+                  <div className="my-10 text-black text-2xl font-medium mb-2">
+                    <div className="font-semibold">{data.title}</div>
+                  </div>
+                  <div className="my-4 font-bold">
+                    Release Date
+                    <p className=" text-black font-normal">
+                      {" "}
+                      {data.release_date}
+                    </p>
+                  </div>
+                  <div className="my-4 font-bold">
+                    Duration
+                    <p className="text-black font-normal">
+                      {data.runtime} minutes
+                    </p>
+                  </div>
+                  <div className="my-4 font-bold">
+                    Genre{" "}
+                    <p className="text-black font-normal">
+                      {data.genres
+                        ?.map((genre) => {
+                          return genre.name;
+                        })
+                        .join(", ")}
+                    </p>
+                  </div>
+                  <div className="my-4 font-bold">
+                    Description
+                    <div className="text-black font-normal">
+                      {data.overview}
+                    </div>
+                  </div>
+                  <div className="my-4">
+                    <p className="font-bold">Rating</p>
+                    <p className="text-xl font-normal">{data.vote_average}</p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+
           <Carousel
             datas={videos.slice(0, 5)}
             content={(data) => (
               <iframe
                 width="100%"
-                height="315"
+                height="400"
                 src={`https://www.youtube.com/embed/${data.key}`}
                 title={data.name}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
