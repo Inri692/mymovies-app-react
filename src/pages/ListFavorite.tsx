@@ -1,6 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
 
-import Loading from "../components/Loading";
 import Layout from "../components/Layout";
 import Card from "../components/Card";
 
@@ -20,20 +19,6 @@ const ListFavorite = () => {
   const dispatch = useDispatch();
   useTitle("Nonton - Favorite Page");
   const datas = useSelector((state: RootState) => state.data.favorites);
-  // const [datas, setDatas] = useState<MovieType[]>([]);
-  //const [loading, setLoading] = useState<boolean>(true);
-
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
-
-  // function fetchData() {
-  //   const getFavorite = localStorage.getItem("FavMovie");
-  //   if (getFavorite) {
-  //     setDatas(JSON.parse(getFavorite));
-  //   }
-  //   setLoading(false);
-  // }
 
   function removeFavorite(data: MovieType) {
     let dupeDatas: MovieType[] = datas.slice();
@@ -45,11 +30,6 @@ const ListFavorite = () => {
 
   return (
     <Layout>
-      {/* {loading ? (
-        <div className="w-full flex items-center justify-center">
-          <Loading />
-        </div>
-      ) : ( */}
       <div className="grid grid-cols-4 gap-3">
         {datas.map((data) => (
           <Card
@@ -63,7 +43,6 @@ const ListFavorite = () => {
           />
         ))}
       </div>
-      {/* )} */}
     </Layout>
   );
 };

@@ -5,7 +5,6 @@ import axios from "axios";
 import Layout from "components/Layout";
 import Card from "components/Card";
 import Loading from "components/Loading";
-//import Carousel from "../components/Carousel";
 
 import { setFavorites } from "utils/redux/reducer/reducer";
 import { MovieType } from "utils/types/movie";
@@ -28,7 +27,6 @@ const Home = () => {
   const [datas, setDatas] = useState<MovieType[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [page, setPage] = useState<number>(2);
-  //const [totalPage, setTotalPage] = useState<number>(1);
 
   useEffect(() => {
     fetchData(1);
@@ -42,11 +40,8 @@ const Home = () => {
         }&language=en-US&page=${page}`
       )
       .then((data) => {
-        // const { results, total_pages } = data.data;
-        // this.setState({ datas: results, totalPage: total_pages });
         const { results, total_page } = data.data;
         setDatas(results);
-        //setTotalPage(total_page);
       })
       .catch((error) => {
         alert(error.toString());
@@ -54,41 +49,18 @@ const Home = () => {
       .finally(() => setLoading(false));
   }
 
-  // function nextPage() {
-  //   const newPage = page + 1;
-  //   setPage(newPage);
-  //   fetchData(newPage);
-  // }
-
-  // function prevPage()
-  //   const newPage = page - 1;
-  //   setPage(newPage);
-  //   fetchData(newPage);
-  // }
-  //nambah comen
   function handleFavorite(data: MovieType) {
     const checkExist = localStorage.getItem("FavMovie");
-    // if (checkExist) {
-    //const parseFav: MovieType[] = JSON.parse(checkExist);
-    //   const find = parseFav.find((data) => data.id === data.id);
-    //   if (find) {
-    //     alert("The Movie is already in favorite");
 
-    //   }
-    // }
     if (checkExist) {
       let parseFav: MovieType[] = JSON.parse(checkExist);
-      // const find = parseFav.find((data) => data.id === data.id);
-      // if (find) {
-      //   alert("The Movie is already in favorite");
-      // }
+
       parseFav.push(data);
       localStorage.setItem("FavMovie", JSON.stringify(parseFav));
       dispatch(setFavorites(parseFav));
       alert("Movie added to favorite");
     } else {
       localStorage.setItem("FavMovie", JSON.stringify([data]));
-      //alert("Movie added to favorite");
     }
   }
   function nextPage() {
@@ -120,26 +92,6 @@ const Home = () => {
     <>
       <Layout>
         <Banner />
-        {/* 
-        <Carousel
-          datas={datas.slice(0, 5)}
-          content={(data) => (
-            <div
-              className="w-full h-full flex justify-center items-center bg-cover bg-center"
-              style={{
-                backgroundImage: `linear-gradient(
-                    rgba(0, 0, 0, 0.5),
-                    rgba(0, 0, 0, 0.5)
-                  ), url(https://image.tmdb.org/t/p/original${data.poster_path})`,
-              }}
-            >
-              <p className="text-white tracking-widest font-bold break-words text-2xl">
-                {data.title}
-              </p>
-            </div>
-          )}
-        /> */}
-
         {loading ? (
           <div className="w-full flex items-center justify-center">
             <Loading />

@@ -1,4 +1,3 @@
-//import { HiStar } from "react-icons/hi";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { MovieType } from "../utils/types/movie";

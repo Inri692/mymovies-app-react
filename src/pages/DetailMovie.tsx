@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 
 import Layout from "../components/Layout";
 import Carousel from "../components/Carousel";
-//import { withRouter } from "../utils/navigation";
+
 import { MovieType, VideosType } from "../utils/types/movie";
 import Loading from "../components/Loading";
 import { useTitle } from "../utils/hooks/hooks";
@@ -19,7 +19,7 @@ interface StateType {
 
 const DetailMovie = () => {
   const { id_movie } = useParams();
-  // const params = useParams(); // params.id_movie
+
   const [data, setData] = useState<MovieType>({});
   const [videos, setVideos] = useState<VideosType[]>([]);
   const [loading, setLoading] = useState<boolean>(true);

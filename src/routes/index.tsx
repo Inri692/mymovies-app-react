@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { useState, useMemo, useEffect } from "react";
-//import { Component } from "react";
+
 import { useDispatch } from "react-redux/es/exports";
 
 import Home from "../pages/Home";
