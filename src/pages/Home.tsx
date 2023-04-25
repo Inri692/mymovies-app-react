@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-
 import axios from "axios";
+
 import Layout from "components/Layout";
 import Card from "components/Card";
 import Loading from "components/Loading";
@@ -9,7 +9,7 @@ import Loading from "components/Loading";
 import { setFavorites } from "utils/redux/reducer/reducer";
 import { MovieType } from "utils/types/movie";
 import { useTitle } from "utils/hooks/hooks";
-import Button3 from "components/Button3";
+import { Button3 } from "components/Button";
 import Banner from "../components/Banner";
 
 interface PropsType {}
@@ -97,7 +97,7 @@ const Home = () => {
             <Loading />
           </div>
         ) : (
-          <div className="grid grid-cols-4 gap-3 p-3 bg-opa stic lg:grid-cols-4 gap-5 p-5 md:grid-cols-3 sm:grid-cols-2 z-0 backdrop-blur-2xl ">
+          <div className="grid grid-cols-4 gap-3 p-3 bg-opa stic lg:grid-cols-4 gap-5 p-5 md:grid-cols-3 sm:grid-cols-2 z-0 ">
             {datas.map((data) => (
               <Card
                 key={data.id}

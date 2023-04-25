@@ -29,6 +29,7 @@ const DetailMovie = () => {
     fetchData();
   }, []);
 
+  console.log(id_movie);
   function fetchData() {
     fetch(
       `https://api.themoviedb.org/3/movie/${id_movie}?api_key=${
@@ -54,7 +55,7 @@ const DetailMovie = () => {
       ) : (
         <>
           <div
-            className=" w-full h-[100vh] bg-cover  "
+            className=" w-full h-[100vh] bg-cover"
             style={{
               backgroundImage: `url(${`https://image.tmdb.org/t/p/original${data.backdrop_path})`}`,
             }}

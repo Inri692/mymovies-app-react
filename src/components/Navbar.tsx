@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { ThemeContext } from "../utils/context";
 import { useContext } from "react";
-import Button2 from "./Button2";
+import { Button2 } from "./Button";
 
 const Navbar = () => {
   const { theme, setTheme } = useContext(ThemeContext);
@@ -10,8 +10,8 @@ const Navbar = () => {
     theme === "light" ? setTheme("dark") : setTheme("light");
   }
   return (
-    <div className="sticky top-0">
-      <div className="navbar bg-[#52525b] dark:bg-[#52525b]">
+    <div className="sticky top-0 ">
+      <div className="navbar bg-[#a1a1aa] dark:bg-gray-900">
         <div className="flex-1">
           <a className="btn btn-ghost normal-case text-2xl text-white">
             <Link to="/">Nonton</Link>
