@@ -97,7 +97,7 @@ const Home = () => {
             <Loading />
           </div>
         ) : (
-          <div className="grid grid-cols-4 gap-3 p-3 bg-opa stic lg:grid-cols-4 gap-5 p-5 md:grid-cols-3 sm:grid-cols-2 z-0 ">
+          <div className="grid grid-cols-4 gap-3 p-3 lg:grid-cols-4 gap-5 p-5 md:grid-cols-3 sm:grid-cols-1 z-0 ">
             {datas.map((data) => (
               <Card
                 key={data.id}

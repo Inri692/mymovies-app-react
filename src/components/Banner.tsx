@@ -35,23 +35,22 @@ const Banner = () => {
 
   return (
     <div
-      className="carousel w-full bg-cover
-       h-screen"
+      className="carousel w-full bg-cover h-screen"
       style={{
         backgroundImage: `url(${`https://image.tmdb.org/t/p/original${randomData?.backdrop_path})`}`,
       }}
     >
       <div className="carousel w-full  bg-cover bg-gradient-to-t from-slate-900 via-slate-900/30  to-transparent">
         <div className="grid content-end p-5 w-[90vw] h-[80vh] pt-40  m-auto">
-          <h1 className="text-5xl font-semibold mb-3 text-white/90">
+          <h1 className="text-5xl font-bold mb-3 text-[#00FFCA]">
             {randomData?.title}
           </h1>
-          <div className="flex flex-wrap mb-3 text-white/90">
+          <div className="flex flex-wrap mb-3 text-[#05BFDB]">
             <span className="font-semibold ">
               Rating: {randomData?.vote_average}
             </span>
 
-            <span className="ml-4 font-semibold mb-3 text-white/90">
+            <span className="ml-4 font-semibold mb-3 text-[#05BFDB]">
               Release Date:
               {randomData?.release_date}
             </span>
