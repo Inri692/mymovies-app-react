@@ -6,21 +6,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 export const Button: FC<ButtonProps> = ({ label, ...props }) => {
   return (
-    <button className="btn gap-1 bg-[#0369a1] text-[9px]" {...props}>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        className="h-6 w-6"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="0.5"
-          d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-        />
-      </svg>
+    <button className="btn gap-1 bg-[#0369a1] text-sm" {...props}>
       {label}
     </button>
   );
@@ -54,7 +40,7 @@ export const Button3 = ({ ...props }) => {
   return (
     <div className="text-center py-3">
       <button
-        className="bg-[#0369a1] hover:bg-[#52525b] w-1/3 rounded-full text-black hover:text-white font-bold"
+        className="bg-[#0D7377] hover:bg-[#52525b] w-1/3 rounded-full text-white font-bold transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:text-[#14FFEC] duration-300"
         onClick={props.onClick}
       >
         Next Page

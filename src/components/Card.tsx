@@ -28,7 +28,7 @@ const Card: FC<CardProps> = ({
   }
 
   return (
-    <div className="grid grid-cols-1 bg-white gap-4 rounded-lg shadow-xl w-80 h-96">
+    <div className="grid grid-cols-1 bg-[#32E0C4] dark:bg-white gap-4 rounded-lg shadow-xl w-80 h-96">
       <div className="flex justify-center items-center px-2 pt-2 cursor-pointer ">
         <img
           onClick={() => onClickDetail()}
@@ -40,17 +40,21 @@ const Card: FC<CardProps> = ({
       <div className="flex justify-between items-center m-3">
         <div>
           <h5
-            className="mb-2 text-2xl text-black md:text-sm font-semibold cursor-pointer"
+            className="mb-2 text-2xl text-black font-bold md:text-sm font-semibold cursor-pointer "
             onClick={() => onClickDetail()}
           >
             {title}
           </h5>
-          <p className="text-black text-[12px] md:text-xs pb-2">
+          <p className="text-black text-[12px] font-semibold md:text-xs pb-2">
             Rating {vote_average}
           </p>
         </div>
 
-        <Button label={labelButton} onClick={onClickFav} />
+        <Button
+          label={labelButton}
+          onClick={onClickFav}
+          className="btn font-bold transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:text-[#14FFEC] duration-300 text-sm"
+        />
       </div>
     </div>
   );
